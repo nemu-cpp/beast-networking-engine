@@ -1,0 +1,20 @@
+ishikopath = envvar("ISHIKO_CPP");
+import $(ishikopath)/tests/include/Ishiko/Tests.bkl;
+
+toolsets = gnu vs2019 vs2017 vs2015 vs2013;
+
+gnu.makefile = ../gnumake/GNUmakefile;
+vs2019.solutionfile = ../vc16/NemuBeastConnectionEngineTests.sln;
+vs2017.solutionfile = ../vc15/NemuBeastConnectionEngineTests.sln;
+vs2015.solutionfile = ../vc14/NemuBeastConnectionEngineTests.sln;
+vs2013.solutionfile = ../vc12/NemuBeastConnectionEngineTests.sln;
+
+program NemuBeastConnectionEngineTests : IshikoTests
+{
+    archs = x86 x86_64;
+
+    sources
+    {
+        ../../src/main.cpp
+    }
+}
