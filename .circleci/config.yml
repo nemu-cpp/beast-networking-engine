@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: ishiko/gcc-ishiko-cpp:0.5.0
+    steps:
+      - run: 
+          name: "Set NEMU_CPP environment variable and create workspace directory"
+          command: mkdir -p /projects/nemu/cpp && echo 'export NEMU_CPP="/projects/nemu/cpp"' >> $BASH_ENV
+      - checkout:
+          path: /projects/nemu/cpp/beast-connection-engine
+      - run:
+          name: Build: BeastConnectionEngine
+          command: cd /projects/nemu/cpp/beast-connection-engine/build/gnumake && make
+      - run:
+          name: "Test: BeastConnectionEngine"
+          command: cd /projects/nemu/cpp/beast-connection-engine/tests/build/gnumake && make && ./NemuBeastConnectionEngineTests
+workflows:
+  version: 2
+  continuous_build:
+    jobs:
+      - build
+  weekly_build:
+    jobs:
+      - build
+    triggers:
+      - schedule:
+          cron: "0 8 * * 0"
+          filters:
+            branches:
+              only:
+                 - main
