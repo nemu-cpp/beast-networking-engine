@@ -10,7 +10,7 @@ jobs:
       - checkout:
           path: /projects/nemu/cpp/beast-connection-engine
       - run:
-          name: Build: BeastConnectionEngine
+          name: "Build: BeastConnectionEngine"
           command: cd /projects/nemu/cpp/beast-connection-engine/build/gnumake && make
       - run:
           name: "Test: BeastConnectionEngine"
