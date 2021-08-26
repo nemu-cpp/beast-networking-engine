@@ -1,0 +1,40 @@
+toolsets = gnu vs2019 vs2017 vs2015 vs2013;
+
+gnu.makefile = ../gnumake/GNUmakefile;
+vs2019.solutionfile = ../vc16/NemuBeastConnectionEngine.sln;
+vs2017.solutionfile = ../vc15/NemuBeastConnectionEngine.sln;
+vs2015.solutionfile = ../vc14/NemuBeastConnectionEngine.sln;
+vs2013.solutionfile = ../vc12/NemuBeastConnectionEngine.sln;
+
+library NemuBeastConnectionEngine
+{
+    archs = x86 x86_64;
+   
+    includedirs += ../../include/Nemu/BeastConnectionEngine;
+
+    if ($(toolset) == gnu)
+    {
+        cxx-compiler-options = "-std=c++11";
+        outputdir = ../../lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        outputdir = ../../lib/$(arch);
+    }
+
+    if ($(config) == Debug)
+    {
+        basename = NemuBeastConnectionEngine-d;
+    }
+
+    headers
+    {
+        ../../include/Nemu/BeastConnectionEngine/BeastServer.h
+    }
+
+    sources
+    {
+        ../../src/BeastServer.cpp
+    }
+}
