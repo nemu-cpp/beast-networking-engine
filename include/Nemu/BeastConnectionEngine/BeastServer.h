@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2019 Xavier Leclercq
+    Copyright (c) 2019-2021 Xavier Leclercq
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -23,12 +23,9 @@
 #ifndef _NEMUFRAMEWORK_NEMU_BEAST_BEASTSERVER_H_
 #define _NEMUFRAMEWORK_NEMU_BEAST_BEASTSERVER_H_
 
-#include "Server.h"
-#include "Routes.h"
-#include "Views.h"
 #include "BeastListener.h"
-#include "AccessLog.h"
-#include "Ishiko/Errors/Error.h"
+#include <Ishiko/Errors/Error.h>
+#include <Nemu/Core.h>
 #include <boost/asio/io_context.hpp>
 #include <thread>
 #include <memory>
