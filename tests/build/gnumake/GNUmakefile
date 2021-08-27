@@ -89,8 +89,17 @@ ISHIKO_CPP_TESTS_ROOT ?= $(ISHIKO_CPP)/tests
 
 all: $(_builddir)NemuBeastConnectionEngineTests
 
-$(_builddir)NemuBeastConnectionEngineTests: $(_builddir)NemuBeastConnectionEngineTests_main.o
-	$(CXX) -o $@ $(LDFLAGS) $(_builddir)NemuBeastConnectionEngineTests_main.o -L$(ISHIKO_CPP_ERRORS_ROOT)/lib -L$(ISHIKO_CPP_BOOST_ROOT)/lib -L$(ISHIKO_CPP_FILESYSTEM_ROOT)/lib -L$(ISHIKO_CPP_TEXT_ROOT)/lib -L$(ISHIKO_CPP_TYPES_ROOT)/lib -L$(ISHIKO_CPP_DIFF_ROOT)/lib -L$(ISHIKO_CPP_PROCESS_ROOT)/lib -L$(ISHIKO_CPP_TESTS_ROOT)/lib -pthread
+$(_builddir)NemuBeastConnectionEngineTests: $(_builddir)NemuBeastConnectionEngineTests_BeastTestSequence.o $(_builddir)NemuBeastConnectionEngineTests_BeastResponseBuilderTests.o $(_builddir)NemuBeastConnectionEngineTests_BeastServerTests.o $(_builddir)NemuBeastConnectionEngineTests_main.o
+	$(CXX) -o $@ $(LDFLAGS) $(_builddir)NemuBeastConnectionEngineTests_BeastTestSequence.o $(_builddir)NemuBeastConnectionEngineTests_BeastResponseBuilderTests.o $(_builddir)NemuBeastConnectionEngineTests_BeastServerTests.o $(_builddir)NemuBeastConnectionEngineTests_main.o -L$(ISHIKO_CPP_ERRORS_ROOT)/lib -L$(ISHIKO_CPP_BOOST_ROOT)/lib -L$(ISHIKO_CPP_FILESYSTEM_ROOT)/lib -L$(ISHIKO_CPP_TEXT_ROOT)/lib -L$(ISHIKO_CPP_TYPES_ROOT)/lib -L$(ISHIKO_CPP_DIFF_ROOT)/lib -L$(ISHIKO_CPP_PROCESS_ROOT)/lib -L$(ISHIKO_CPP_TESTS_ROOT)/lib -pthread
+
+$(_builddir)NemuBeastConnectionEngineTests_BeastTestSequence.o: ../../src/BeastTestSequence.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_TESTS_ROOT)/include ../../src/BeastTestSequence.cpp
+
+$(_builddir)NemuBeastConnectionEngineTests_BeastResponseBuilderTests.o: ../../src/BeastResponseBuilderTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_TESTS_ROOT)/include ../../src/BeastResponseBuilderTests.cpp
+
+$(_builddir)NemuBeastConnectionEngineTests_BeastServerTests.o: ../../src/BeastServerTests.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_TESTS_ROOT)/include ../../src/BeastServerTests.cpp
 
 $(_builddir)NemuBeastConnectionEngineTests_main.o: ../../src/main.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_DIFF_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(ISHIKO_CPP_TESTS_ROOT)/include ../../src/main.cpp

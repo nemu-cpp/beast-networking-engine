@@ -152,7 +152,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\BeastTestSequence.cpp" />
+    <ClCompile Include="..\..\src\BeastResponseBuilderTests.cpp" />
+    <ClCompile Include="..\..\src\BeastServerTests.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\BeastTestSequence.h" />
+    <ClInclude Include="..\..\src\BeastResponseBuilderTests.h" />
+    <ClInclude Include="..\..\src\BeastServerTests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
