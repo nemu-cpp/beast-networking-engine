@@ -20,6 +20,9 @@
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastRequest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastResponseBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -29,6 +32,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\BeastListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BeastRequest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\BeastResponseBuilder.cpp">

@@ -151,11 +151,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\BeastListener.cpp" />
+    <ClCompile Include="..\..\src\BeastRequest.cpp" />
     <ClCompile Include="..\..\src\BeastResponseBuilder.cpp" />
     <ClCompile Include="..\..\src\BeastServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastListener.h" />
+    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastRequest.h" />
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastResponseBuilder.h" />
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastServer.h" />
   </ItemGroup>
