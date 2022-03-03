@@ -29,6 +29,9 @@
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastSession.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\linkoptions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -44,6 +47,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\BeastServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BeastSession.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

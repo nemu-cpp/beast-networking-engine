@@ -154,12 +154,14 @@
     <ClCompile Include="..\..\src\BeastRequest.cpp" />
     <ClCompile Include="..\..\src\BeastResponseBuilder.cpp" />
     <ClCompile Include="..\..\src\BeastServer.cpp" />
+    <ClCompile Include="..\..\src\BeastSession.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastListener.h" />
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastRequest.h" />
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastResponseBuilder.h" />
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastServer.h" />
+    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastSession.h" />
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\linkoptions.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

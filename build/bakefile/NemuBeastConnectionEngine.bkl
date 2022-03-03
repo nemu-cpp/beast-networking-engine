@@ -37,6 +37,7 @@ library NemuBeastConnectionEngine : NemuCore
         ../../include/Nemu/BeastConnectionEngine/BeastRequest.h
         ../../include/Nemu/BeastConnectionEngine/BeastResponseBuilder.h
         ../../include/Nemu/BeastConnectionEngine/BeastServer.h
+        ../../include/Nemu/BeastConnectionEngine/BeastSession.h
         ../../include/Nemu/BeastConnectionEngine/linkoptions.hpp
     }
 
@@ -46,5 +47,6 @@ library NemuBeastConnectionEngine : NemuCore
         ../../src/BeastRequest.cpp
         ../../src/BeastResponseBuilder.cpp
         ../../src/BeastServer.cpp
+        ../../src/BeastSession.cpp
     }
 }

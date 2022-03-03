@@ -83,8 +83,8 @@ NEMU_CPP_CORE_ROOT ?= $(NEMU_CPP)/core
 
 all: ../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),NemuBeastConnectionEngine-d,NemuBeastConnectionEngine).a
 
-../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),NemuBeastConnectionEngine-d,NemuBeastConnectionEngine).a: $(_builddir)NemuBeastConnectionEngine_BeastListener.o $(_builddir)NemuBeastConnectionEngine_BeastRequest.o $(_builddir)NemuBeastConnectionEngine_BeastResponseBuilder.o $(_builddir)NemuBeastConnectionEngine_BeastServer.o
-	$(AR) rc $@ $(_builddir)NemuBeastConnectionEngine_BeastListener.o $(_builddir)NemuBeastConnectionEngine_BeastRequest.o $(_builddir)NemuBeastConnectionEngine_BeastResponseBuilder.o $(_builddir)NemuBeastConnectionEngine_BeastServer.o
+../bakefile/../../lib/lib$(if $(call _equal,$(config),Debug),NemuBeastConnectionEngine-d,NemuBeastConnectionEngine).a: $(_builddir)NemuBeastConnectionEngine_BeastListener.o $(_builddir)NemuBeastConnectionEngine_BeastRequest.o $(_builddir)NemuBeastConnectionEngine_BeastResponseBuilder.o $(_builddir)NemuBeastConnectionEngine_BeastServer.o $(_builddir)NemuBeastConnectionEngine_BeastSession.o
+	$(AR) rc $@ $(_builddir)NemuBeastConnectionEngine_BeastListener.o $(_builddir)NemuBeastConnectionEngine_BeastRequest.o $(_builddir)NemuBeastConnectionEngine_BeastResponseBuilder.o $(_builddir)NemuBeastConnectionEngine_BeastServer.o $(_builddir)NemuBeastConnectionEngine_BeastSession.o
 	$(RANLIB) $@
 
 $(_builddir)NemuBeastConnectionEngine_BeastListener.o: ../../src/BeastListener.cpp
@@ -98,6 +98,9 @@ $(_builddir)NemuBeastConnectionEngine_BeastResponseBuilder.o: ../../src/BeastRes
 
 $(_builddir)NemuBeastConnectionEngine_BeastServer.o: ../../src/BeastServer.cpp
 	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I../../include/Nemu/BeastConnectionEngine -std=c++11 ../../src/BeastServer.cpp
+
+$(_builddir)NemuBeastConnectionEngine_BeastSession.o: ../../src/BeastSession.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I../../include/Nemu/BeastConnectionEngine -std=c++11 ../../src/BeastSession.cpp
 
 clean:
 	rm -f $(_builddir)*.o
