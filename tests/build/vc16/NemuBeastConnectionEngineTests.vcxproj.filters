@@ -17,9 +17,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\BeastTestSequence.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\BeastResponseBuilderTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -28,9 +25,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\BeastTestSequence.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\BeastResponseBuilderTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

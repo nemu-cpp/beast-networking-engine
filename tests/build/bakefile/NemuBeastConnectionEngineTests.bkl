@@ -15,14 +15,12 @@ program NemuBeastConnectionEngineTests : IshikoTests
 
     headers
     {
-        ../../src/BeastTestSequence.h
         ../../src/BeastResponseBuilderTests.h
         ../../src/BeastServerTests.h
     }
 
     sources
     {
-        ../../src/BeastTestSequence.cpp
         ../../src/BeastResponseBuilderTests.cpp
         ../../src/BeastServerTests.cpp
         ../../src/main.cpp
