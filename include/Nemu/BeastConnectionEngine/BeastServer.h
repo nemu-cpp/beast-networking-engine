@@ -8,9 +8,9 @@
 #define _NEMU_CPP_BEASTCONNECTIONENGINE_BEASTSERVER_H_
 
 #include "BeastListener.h"
+#include <boost/asio/io_context.hpp>
 #include <Ishiko/Errors.hpp>
 #include <Nemu/Core.h>
-#include <boost/asio/io_context.hpp>
 #include <thread>
 #include <memory>
 

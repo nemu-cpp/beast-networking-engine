@@ -4,7 +4,6 @@
     See https://github.com/nemu-cpp/beast-connection-engine/blob/main/LICENSE.txt
 */
 
-
 #ifndef _NEMU_CPP_BEASTCONNECTIONENGINE_BEASTRESPONSEBUILDER_H_
 #define _NEMU_CPP_BEASTCONNECTIONENGINE_BEASTRESPONSEBUILDER_H_
 
