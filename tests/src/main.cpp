@@ -1,10 +1,10 @@
 /*
-    Copyright (c) 2021 Xavier Leclercq
+    Copyright (c) 2021-2022 Xavier Leclercq
     Released under the MIT License
     See https://github.com/nemu-cpp/beast-connection-engine/blob/main/LICENSE.txt
 */
 
-#include <Ishiko/Tests.h>
+#include <Ishiko/Tests.hpp>
 
 using namespace Ishiko::Tests;
 
