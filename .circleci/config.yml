@@ -9,7 +9,7 @@ jobs:
           command: mkdir -p /projects/nemu/cpp && echo 'export NEMU_CPP="/projects/nemu/cpp"' >> $BASH_ENV
       - run:
           name: "Install build dependency: Nemu/C++ Core"
-          command: cd /projects/ishiko/cpp && git clone https://github.com/ishiko-cpp/core.git && cd core/build/gnumake && make
+          command: cd /projects/nemu/cpp && git clone https://github.com/nemu-cpp/core.git && cd core/build/gnumake && make
       - checkout:
           path: /projects/nemu/cpp/beast-connection-engine
       - run:
