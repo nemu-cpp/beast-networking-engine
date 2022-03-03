@@ -29,6 +29,9 @@
     <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\linkoptions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\BeastListener.cpp">
