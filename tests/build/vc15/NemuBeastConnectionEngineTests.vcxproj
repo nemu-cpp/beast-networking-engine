@@ -159,10 +159,14 @@
     <ClCompile Include="..\..\src\BeastResponseBuilderTests.cpp" />
     <ClCompile Include="..\..\src\BeastServerTests.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\helpers\TestRoutes.cpp" />
+    <ClCompile Include="..\..\src\helpers\TestServerObserver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\BeastResponseBuilderTests.h" />
     <ClInclude Include="..\..\src\BeastServerTests.h" />
+    <ClInclude Include="..\..\src\helpers\TestRoutes.hpp" />
+    <ClInclude Include="..\..\src\helpers\TestServerObserver.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

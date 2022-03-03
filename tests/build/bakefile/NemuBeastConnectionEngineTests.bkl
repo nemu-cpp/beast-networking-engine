@@ -20,6 +20,8 @@ program NemuBeastConnectionEngineTests : NemuBeastConnectionEngine, IshikoHTTP, 
     {
         ../../src/BeastResponseBuilderTests.h
         ../../src/BeastServerTests.h
+        ../../src/helpers/TestRoutes.hpp
+        ../../src/helpers/TestServerObserver.hpp
     }
 
     sources
@@ -27,5 +29,7 @@ program NemuBeastConnectionEngineTests : NemuBeastConnectionEngine, IshikoHTTP, 
         ../../src/BeastResponseBuilderTests.cpp
         ../../src/BeastServerTests.cpp
         ../../src/main.cpp
+        ../../src/helpers/TestRoutes.cpp
+        ../../src/helpers/TestServerObserver.cpp
     }
 }
