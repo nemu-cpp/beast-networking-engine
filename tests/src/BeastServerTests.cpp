@@ -1,37 +1,23 @@
 /*
-    Copyright (c) 2019 Xavier Leclercq
-
-    Permission is hereby granted, free of charge, to any person obtaining a
-    copy of this software and associated documentation files (the "Software"),
-    to deal in the Software without restriction, including without limitation
-    the rights to use, copy, modify, merge, publish, distribute, sublicense,
-    and/or sell copies of the Software, and to permit persons to whom the
-    Software is furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-    IN THE SOFTWARE.
+    Copyright (c) 2019-2022 Xavier Leclercq
+    Released under the MIT License
+    See https://github.com/nemu-cpp/beast-connection-engine/blob/main/LICENSE.txt
 */
 
 #include "BeastServerTests.h"
-#include "../Helpers/TestRoutes.h"
-#include "../Helpers/TestServerObserver.h"
-#include "Beast/BeastServer.h"
-#include "Ishiko/HTTP/HTTPClient.h"
-#include <boost/filesystem/operations.hpp>
+#include "helpers/TestRoutes.h"
+#include "helpers/TestServerObserver.h"
+#include "Nemu/BeastConnectionEngine/BeastServer.h"
+#include <Ishiko/HTTP/HTTPClient.hpp>
+#include <fstream>
 #include <thread>
 
+using namespace boost::filesystem;
+using namespace Ishiko::HTTP;
 using namespace Ishiko::Tests;
 
-BeastServerTests::BeastServerTests(const TestNumber& number, const TestEnvironment& environment)
-    : TestSequence(number, "BeastServer tests", environment)
+BeastServerTests::BeastServerTests(const TestNumber& number, const TestContext& context)
+    : TestSequence(number, "BeastServer tests", context)
 {
     append<HeapAllocationErrorsTest>("Creation test 1", CreationTest1);
     append<HeapAllocationErrorsTest>("start test 1", StartTest1);
@@ -49,11 +35,11 @@ void BeastServerTests::CreationTest1(Test& test)
     Nemu::Routes routes;
     Nemu::Views views;
     std::shared_ptr<Nemu::Server::Observer> observer;
-    Ishiko::Error error(0);
+    Ishiko::Error error;
     Nemu::BeastServer server(1, "127.0.0.1", 8088, routes, views, observer, error);
 
-    ISHTF_FAIL_IF((bool)error);
-    ISHTF_PASS();
+    ISHIKO_FAIL_IF(error);
+    ISHIKO_PASS();
 }
 
 void BeastServerTests::StartTest1(Test& test)
@@ -61,18 +47,18 @@ void BeastServerTests::StartTest1(Test& test)
     TestRoutes routes;
     Nemu::Views views;
     std::shared_ptr<TestServerObserver> observer = std::make_shared<TestServerObserver>();
-    Ishiko::Error error(0);
+    Ishiko::Error error;
     Nemu::BeastServer server(1, "127.0.0.1", 8088, routes, views, observer, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     server.start();
     server.stop();
     server.join();
 
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes().size() == 0);
-    ISHTF_FAIL_UNLESS(observer->connectionEvents().size() == 0);
-    ISHTF_PASS();
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes().size(), 0);
+    ISHIKO_FAIL_IF_NEQ(observer->connectionEvents().size(), 0);
+    ISHIKO_PASS();
 }
 
 void BeastServerTests::StartTest2(Test& test)
@@ -80,18 +66,18 @@ void BeastServerTests::StartTest2(Test& test)
     TestRoutes routes;
     Nemu::Views views;
     std::shared_ptr<TestServerObserver> observer = std::make_shared<TestServerObserver>();
-    Ishiko::Error error(0);
+    Ishiko::Error error;
     Nemu::BeastServer server(16, "127.0.0.1", 8088, routes, views, observer, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     server.start();
     server.stop();
     server.join();
 
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes().size() == 0);
-    ISHTF_FAIL_UNLESS(observer->connectionEvents().size() == 0);
-    ISHTF_PASS();
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes().size(), 0);
+    ISHIKO_FAIL_IF_NEQ(observer->connectionEvents().size(), 0);
+    ISHIKO_PASS();
 }
 
 void BeastServerTests::StartTest3(Test& test)
@@ -99,110 +85,111 @@ void BeastServerTests::StartTest3(Test& test)
     TestRoutes routes;
     Nemu::Views views;
     std::shared_ptr<TestServerObserver> observer = std::make_shared<TestServerObserver>();
-    Ishiko::Error error(0);
+    Ishiko::Error error;
     Nemu::BeastServer server(128, "127.0.0.1", 8088, routes, views, observer, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     server.start();
     server.stop();
     server.join();
 
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes().size() == 0);
-    ISHTF_FAIL_UNLESS(observer->connectionEvents().size() == 0);
-    ISHTF_PASS();
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes().size(), 0);
+    ISHIKO_FAIL_IF_NEQ(observer->connectionEvents().size(), 0);
+    ISHIKO_PASS();
 }
 
 void BeastServerTests::RequestTest1(FileComparisonTest& test)
 {
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "BeastTests/BeastServerTests_RequestTest1.txt");
-    boost::filesystem::remove(outputPath);
-    boost::filesystem::path referencePath(test.environment().getReferenceDataDirectory() / "BeastTests/BeastServerTests_RequestTest1.txt");
+    path outputPath(test.context().getTestOutputPath("BeastTests/BeastServerTests_RequestTest1.txt"));
+    path referencePath(test.context().getReferenceDataPath("BeastTests/BeastServerTests_RequestTest1.txt"));
 
     TestRoutes routes;
     Nemu::Views views;
     std::shared_ptr<TestServerObserver> observer = std::make_shared<TestServerObserver>();
-    Ishiko::Error error(0);
+    Ishiko::Error error;
     Nemu::BeastServer server(1, "127.0.0.1", 8088, routes, views, observer, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     server.start();
 
     std::ofstream responseFile(outputPath.string());
-    Ishiko::HTTP::HTTPClient::get("127.0.0.1", 8088, "/", responseFile, error);
+    HTTPClient::Get("127.0.0.1", 8088, "/", responseFile, error);
     responseFile.close();
 
     server.stop();
     server.join();
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     const std::vector<std::tuple<TestServerObserver::EEventType, const Nemu::Server*, std::string>>& events =
         observer->connectionEvents();
-    ISHTF_FAIL_UNLESS(events.size() == 2);
-    ISHTF_FAIL_UNLESS(std::get<0>(events[0]) == TestServerObserver::eConnectionOpened);
-    ISHTF_FAIL_UNLESS(std::get<1>(events[0]) == &server);
-    ISHTF_FAIL_UNLESS(std::get<2>(events[0]).substr(0, 10) == "127.0.0.1:");
-    ISHTF_FAIL_UNLESS(std::get<0>(events[1]) == TestServerObserver::eConnectionClosed);
-    ISHTF_FAIL_UNLESS(std::get<1>(events[1]) == &server);
-    ISHTF_FAIL_UNLESS(std::get<2>(events[0]) == std::get<2>(events[1]));
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes().size() == 1);
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes()[0] == "/");
-    ISHTF_PASS();
+
+    ISHIKO_FAIL_IF_NEQ(events.size(), 2);
+    ISHIKO_FAIL_IF_NEQ(std::get<0>(events[0]), TestServerObserver::eConnectionOpened);
+    ISHIKO_FAIL_IF_NEQ(std::get<1>(events[0]), &server);
+    ISHIKO_FAIL_IF_NEQ(std::get<2>(events[0]).substr(0, 10), "127.0.0.1:");
+    ISHIKO_FAIL_IF_NEQ(std::get<0>(events[1]), TestServerObserver::eConnectionClosed);
+    ISHIKO_FAIL_IF_NEQ(std::get<1>(events[1]), &server);
+    ISHIKO_FAIL_IF_NEQ(std::get<2>(events[0]), std::get<2>(events[1]));
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes().size(), 1);
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes()[0], "/");
 
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(referencePath);
+
+    ISHIKO_PASS();
 }
 
 void BeastServerTests::RequestTest2(FileComparisonTest& test)
 {
-    boost::filesystem::path outputPath(test.environment().getTestOutputDirectory() / "BeastTests/BeastServerTests_RequestTest2.txt");
-    boost::filesystem::remove(outputPath);
-    boost::filesystem::path referencePath(test.environment().getReferenceDataDirectory() / "BeastTests/BeastServerTests_RequestTest2.txt");
+    path outputPath(test.context().getTestOutputPath("BeastTests/BeastServerTests_RequestTest2.txt"));
+    path referencePath(test.context().getReferenceDataPath("BeastTests/BeastServerTests_RequestTest2.txt"));
 
     TestRoutes routes;
     Nemu::Views views;
     std::shared_ptr<TestServerObserver> observer = std::make_shared<TestServerObserver>();
-    Ishiko::Error error(0);
+    Ishiko::Error error;
     Nemu::BeastServer server(1, "127.0.0.1", 8088, routes, views, observer, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     server.start();
 
     std::ofstream responseFile(outputPath.string());
-    Ishiko::HTTP::HTTPClient::get("127.0.0.1", 8088, "/", responseFile, error);
-    Ishiko::HTTP::HTTPClient::get("127.0.0.1", 8088, "/", responseFile, error);
+    HTTPClient::Get("127.0.0.1", 8088, "/", responseFile, error);
+    HTTPClient::Get("127.0.0.1", 8088, "/", responseFile, error);
     responseFile.close();
 
     server.stop();
     server.join();
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     const std::vector<std::tuple<TestServerObserver::EEventType, const Nemu::Server*, std::string>>& events =
         observer->connectionEvents();
-    ISHTF_FAIL_UNLESS(events.size() == 4);
-    ISHTF_FAIL_UNLESS(std::get<0>(events[0]) == TestServerObserver::eConnectionOpened);
-    ISHTF_FAIL_UNLESS(std::get<1>(events[0]) == &server);
-    ISHTF_FAIL_UNLESS(std::get<2>(events[0]).substr(0, 10) == "127.0.0.1:");
-    ISHTF_FAIL_UNLESS(std::get<0>(events[1]) == TestServerObserver::eConnectionClosed);
-    ISHTF_FAIL_UNLESS(std::get<1>(events[1]) == &server);
-    ISHTF_FAIL_UNLESS(std::get<2>(events[0]) == std::get<2>(events[1]));
-    ISHTF_FAIL_UNLESS(std::get<0>(events[2]) == TestServerObserver::eConnectionOpened);
-    ISHTF_FAIL_UNLESS(std::get<1>(events[2]) == &server);
-    ISHTF_FAIL_UNLESS(std::get<2>(events[2]).substr(0, 10) == "127.0.0.1:");
-    ISHTF_FAIL_UNLESS(std::get<0>(events[3]) == TestServerObserver::eConnectionClosed);
-    ISHTF_FAIL_UNLESS(std::get<1>(events[3]) == &server);
-    ISHTF_FAIL_UNLESS(std::get<2>(events[2]) == std::get<2>(events[3]));
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes().size() == 2);
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes()[0] == "/");
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes()[1] == "/");
-    ISHTF_PASS();
-
+    ISHIKO_FAIL_IF_NEQ(events.size(), 4);
+    ISHIKO_FAIL_IF_NEQ(std::get<0>(events[0]), TestServerObserver::eConnectionOpened);
+    ISHIKO_FAIL_IF_NEQ(std::get<1>(events[0]), &server);
+    ISHIKO_FAIL_IF_NEQ(std::get<2>(events[0]).substr(0, 10), "127.0.0.1:");
+    ISHIKO_FAIL_IF_NEQ(std::get<0>(events[1]), TestServerObserver::eConnectionClosed);
+    ISHIKO_FAIL_IF_NEQ(std::get<1>(events[1]), &server);
+    ISHIKO_FAIL_IF_NEQ(std::get<2>(events[0]), std::get<2>(events[1]));
+    ISHIKO_FAIL_IF_NEQ(std::get<0>(events[2]), TestServerObserver::eConnectionOpened);
+    ISHIKO_FAIL_IF_NEQ(std::get<1>(events[2]), &server);
+    ISHIKO_FAIL_IF_NEQ(std::get<2>(events[2]).substr(0, 10), "127.0.0.1:");
+    ISHIKO_FAIL_IF_NEQ(std::get<0>(events[3]), TestServerObserver::eConnectionClosed);
+    ISHIKO_FAIL_IF_NEQ(std::get<1>(events[3]), &server);
+    ISHIKO_FAIL_IF_NEQ(std::get<2>(events[2]), std::get<2>(events[3]));
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes().size(), 2);
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes()[0], "/");
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes()[1], "/");
+    
     test.setOutputFilePath(outputPath);
     test.setReferenceFilePath(referencePath);
+
+    ISHIKO_PASS();
 }
 
 void BeastServerTests::RequestTest3(Test& test)
@@ -210,19 +197,19 @@ void BeastServerTests::RequestTest3(Test& test)
     TestRoutes routes;
     Nemu::Views views;
     std::shared_ptr<TestServerObserver> observer = std::make_shared<TestServerObserver>();
-    Ishiko::Error error(0);
+    Ishiko::Error error;
     Nemu::BeastServer server(1, "127.0.0.1", 8088, routes, views, observer, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     server.start();
 
     for (size_t i = 0; i < 100; ++i)
     {
         std::stringstream response;
-        Ishiko::HTTP::HTTPClient::get("127.0.0.1", 8088, "/", response, error);
+        HTTPClient::Get("127.0.0.1", 8088, "/", response, error);
 
-        ISHTF_ABORT_IF((bool)error);
+        ISHIKO_ABORT_IF(error);
     }
 
     server.stop();
@@ -230,9 +217,10 @@ void BeastServerTests::RequestTest3(Test& test)
 
     const std::vector<std::tuple<TestServerObserver::EEventType, const Nemu::Server*, std::string>>& events =
         observer->connectionEvents();
-    ISHTF_FAIL_UNLESS(events.size() == 200);
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes().size() == 100);
-    ISHTF_PASS();
+
+    ISHIKO_FAIL_IF_NEQ(events.size(), 200);
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes().size(), 100);
+    ISHIKO_PASS();
 }
 
 void BeastServerTests::RequestTest4(Test& test)
@@ -240,10 +228,10 @@ void BeastServerTests::RequestTest4(Test& test)
     TestRoutes routes;
     Nemu::Views views;
     std::shared_ptr<TestServerObserver> observer = std::make_shared<TestServerObserver>();
-    Ishiko::Error error(0);
+    Ishiko::Error error;
     Nemu::BeastServer server(1, "127.0.0.1", 8088, routes, views, observer, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     server.start();
 
@@ -257,7 +245,7 @@ void BeastServerTests::RequestTest4(Test& test)
             {
                 Ishiko::Error error(0);
                 std::stringstream response;
-                Ishiko::HTTP::HTTPClient::get("127.0.0.1", 8088, "/", response, error);
+                HTTPClient::Get("127.0.0.1", 8088, "/", response, error);
             }
         }));
     }
@@ -271,9 +259,10 @@ void BeastServerTests::RequestTest4(Test& test)
 
     const std::vector<std::tuple<TestServerObserver::EEventType, const Nemu::Server*, std::string>>& events =
         observer->connectionEvents();
-    ISHTF_FAIL_UNLESS(events.size() == 200);
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes().size() == 100);
-    ISHTF_PASS();
+
+    ISHIKO_FAIL_IF_NEQ(events.size(), 200);
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes().size(), 100);
+    ISHIKO_PASS();
 }
 
 void BeastServerTests::RequestTest5(Test& test)
@@ -281,10 +270,10 @@ void BeastServerTests::RequestTest5(Test& test)
     TestRoutes routes;
     Nemu::Views views;
     std::shared_ptr<TestServerObserver> observer = std::make_shared<TestServerObserver>();
-    Ishiko::Error error(0);
+    Ishiko::Error error;
     Nemu::BeastServer server(16, "127.0.0.1", 8088, routes, views, observer, error);
 
-    ISHTF_ABORT_IF((bool)error);
+    ISHIKO_ABORT_IF(error);
 
     server.start();
 
@@ -298,7 +287,7 @@ void BeastServerTests::RequestTest5(Test& test)
             {
                 Ishiko::Error error(0);
                 std::stringstream response;
-                Ishiko::HTTP::HTTPClient::get("127.0.0.1", 8088, "/", response, error);
+                HTTPClient::Get("127.0.0.1", 8088, "/", response, error);
             }
         }));
     }
@@ -312,7 +301,8 @@ void BeastServerTests::RequestTest5(Test& test)
 
     const std::vector<std::tuple<TestServerObserver::EEventType, const Nemu::Server*, std::string>>& events =
         observer->connectionEvents();
-    ISHTF_FAIL_UNLESS(events.size() == 200);
-    ISHTF_FAIL_UNLESS(routes.visitedRoutes().size() == 100);
-    ISHTF_PASS();
+
+    ISHIKO_FAIL_IF_NEQ(events.size(), 200);
+    ISHIKO_FAIL_IF_NEQ(routes.visitedRoutes().size(), 100);
+    ISHIKO_PASS();
 }

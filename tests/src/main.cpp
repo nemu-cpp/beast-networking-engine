@@ -6,6 +6,7 @@
 
 #include "BeastResponseBuilderTests.h"
 #include "BeastServerTests.h"
+#include "Nemu/BeastConnectionEngine/linkoptions.hpp"
 #include <Ishiko/Tests.hpp>
 
 using namespace Ishiko::Tests;
