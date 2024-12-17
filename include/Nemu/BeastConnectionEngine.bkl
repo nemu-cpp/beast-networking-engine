@@ -1,0 +1,23 @@
+nemupath = envvar("NEMU_CPP");
+import $(nemupath)/core/include/Nemu/Core.bkl;
+
+setting NEMU_CPP_BEASTCONNECTIONENGINE_ROOT
+{
+    help = "Path to the Nemu BeastConnectionEngine installation";
+    default = '$(NEMU_CPP)/beast-connection-engine';
+}
+
+template NemuBeastConnectionEngine : NemuCore
+{
+    includedirs += $(NEMU_CPP_BEASTCONNECTIONENGINE_ROOT)/include;
+
+    if ($(toolset) == gnu)
+    {
+        libdirs += $(NEMU_CPP_BEASTCONNECTIONENGINE_ROOT)/lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        libdirs += $(NEMU_CPP_BEASTCONNECTIONENGINE_ROOT)/lib/$(arch);
+    }
+}

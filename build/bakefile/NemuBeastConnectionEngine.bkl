@@ -33,11 +33,20 @@ library NemuBeastConnectionEngine : NemuCore
 
     headers
     {
+        ../../include/Nemu/BeastConnectionEngine/BeastListener.h
+        ../../include/Nemu/BeastConnectionEngine/BeastRequest.h
+        ../../include/Nemu/BeastConnectionEngine/BeastResponseBuilder.h
         ../../include/Nemu/BeastConnectionEngine/BeastServer.h
+        ../../include/Nemu/BeastConnectionEngine/BeastSession.h
+        ../../include/Nemu/BeastConnectionEngine/linkoptions.hpp
     }
 
     sources
     {
+        ../../src/BeastListener.cpp
+        ../../src/BeastRequest.cpp
+        ../../src/BeastResponseBuilder.cpp
         ../../src/BeastServer.cpp
+        ../../src/BeastSession.cpp
     }
 }

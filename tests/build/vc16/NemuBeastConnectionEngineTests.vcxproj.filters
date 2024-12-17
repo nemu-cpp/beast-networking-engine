@@ -17,39 +17,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastListener.h">
+    <ClInclude Include="..\..\src\BeastResponseBuilderTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastRequest.h">
+    <ClInclude Include="..\..\src\BeastServerTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastResponseBuilder.h">
+    <ClInclude Include="..\..\src\helpers\TestRoutes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastServer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\BeastSession.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\Nemu\BeastConnectionEngine\linkoptions.hpp">
+    <ClInclude Include="..\..\src\helpers\TestServerObserver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\BeastListener.cpp">
+    <ClCompile Include="..\..\src\BeastResponseBuilderTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BeastRequest.cpp">
+    <ClCompile Include="..\..\src\BeastServerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BeastResponseBuilder.cpp">
+    <ClCompile Include="..\..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BeastServer.cpp">
+    <ClCompile Include="..\..\src\helpers\TestRoutes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BeastSession.cpp">
+    <ClCompile Include="..\..\src\helpers\TestServerObserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
